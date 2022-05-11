@@ -1,0 +1,26 @@
+server:
+  port: 9090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: zhangfei-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: demo-service
+          uri: lb://demo-service
+          predicates:
+              - Path=/zhangfei/**
+        - id: demo1-service
+          uri: lb://demo1-service
+          predicates:
+              - Path=/ldz/**
+
+
+
+

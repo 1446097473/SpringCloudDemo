@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>SpringCloudDemo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!--一般的Maven父级项目打包方式都是 pom， 如果不指定默认是jar    -->
+    <packaging>pom</packaging>
+
+
+
+    <!-- 在父项目中继承SpringBoot父项目 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.5.RELEASE</version>
+    </parent>
+
+
+    <!--统一管理jar包版本-->
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <feign.version>1.4.7.RELEASE</feign.version>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <gateway.version>2.2.10.RELEASE</gateway.version>
+    </properties>
+
+    <!--子模块继承之后，提供作用：锁定版本+子module不用写groupId和version-->
+    <dependencyManagement><!--定义规范，但不导入-->
+        <dependencies>
+           <!-- 这个声明依赖包括只能有 eureka-server 和 eureka-client            -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-feign</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>zhangfei-demo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${gateway.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <modules>
+        <module>zhangfei-test1</module>
+        <module>zhangfei-demo</module>
+        <module>zhangfei-demo2</module>
+        <module>zhangfei-gateaway</module>
+        <module>zhangfei-core</module>
+    </modules>
+
+
+</project>
